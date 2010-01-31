@@ -5,18 +5,28 @@ if (!array_key_exists('authorized', $_SESSION) || $_SESSION['authorized'] != 'tr
     header("Location: $redirect_base/login.php");
 }
 require_once 'facebook.php';
+require_once 'lib.inc.php';
 include_once 'header.inc.php';
 global $api_key, $secret;
 $facebook = new Facebook($api_key, $secret);
 $fb_user = $facebook->get_loggedin_user();
 
-if (array_key_exists('error', $_GET) && $_GET['error'] != '') {
-    echo '<p class="error">' . $_GET['error'] . '</p>';
-}
-
 if ($fb_user) {
+    // TODO:  put this in its own include or function?
+    $users = get_github_users($fb_user);
+    if (count($users) > 0) { ?>
+        <h2>Github Users You've Added</h2>
+        <ul>
+            <?php
+            // TODO:  show delete option
+            foreach ($users as $user) { ?>
+                <li><?php echo $user['github_user_name']; ?></li>
+            <?php } ?>
+        </ul>
+        <?php
+    }
     ?>
-    <fb:profile-pic class="fb_profile_pic_rendered FB_ElementReady" facebook-logo="true" size="square" uid="<?php echo $fb_user; ?>"></fb:profile-pic>
+    
     <form method="post" action="<?php echo $redirect_base; ?>/add_github_user.php">
         <input type="hidden" value="<?php echo $fb_user; ?>" name="fb_user_id" />
         <fieldset>
@@ -25,6 +35,7 @@ if ($fb_user) {
                 <li><label for="github_users_name">Github user name:</label>
                 <input type="text" size="20" id="github_users_name" name="github_users[name]" /></li>
                 <?php
+                // TODO:  add checkbox for 'Is this you?'
                 //<li><label for="github_users_password">Github password (optional):</label>
                 //<input type="password" size="20" id="github_users_password" name="github_users[password]" /></li>
                 ?>

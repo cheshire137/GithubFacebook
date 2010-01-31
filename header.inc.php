@@ -8,3 +8,12 @@
 <body onload="initFB();">
     <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US" type="text/javascript"></script>
     <h1>Github Activity</h1>
+    <?php
+    if (array_key_exists('error', $_GET) && $_GET['error'] != '') {
+        echo '<p class="error">' . $_GET['error'] . '</p>';
+    }
+    
+    if (array_key_exists('notice', $_GET) && $_GET['notice'] != '') {
+        echo '<p class="notice">' . $_GET['notice'] . '</p>';
+    }
+    ?>

@@ -2,17 +2,16 @@
 require_once 'config.inc.php';
 require_once 'facebook.php';
 
-function add_github_user($fb_user_id, $github_name) {
+function add_github_user($link, $fb_user_id, $github_name) {
   if (is_null($fb_user_id) || is_null($github_name)) {
     return false;
   }
   
-  $link = get_connection();
-  $query = sprintf("INSERT INTO fb_github_users (github_user_name, fb_user_id) VALUES(%s, %s)",
+  $query = sprintf("INSERT INTO fb_github_users (github_user_name, fb_user_id) VALUES('%s', '%s')",
     mysql_real_escape_string($github_name),
     mysql_real_escape_string($fb_user_id));
   $success = run_insert_query($link, $query);
-  disconnect($link);
+  
   return $success;
 }
 
@@ -31,16 +30,30 @@ function get_connection() {
 
 function get_facebook_user($fb_user_id) {
   $link = get_connection();
+  $user = get_facebook_user_with_link($link, $fb_user_id);
+  disconnect($link);
+  return $user;
+}
+
+function get_facebook_user_with_link($link, $fb_user_id) {
   $query = sprintf("SELECT * FROM fb_github_users WHERE fb_user_id='%s'",
     mysql_real_escape_string($fb_user_id));
   $rows = run_select_query($link, $query);
-  disconnect($link);
 
   if (count($rows) > 0) {
     return $rows[0];
   } else {
     return null;
   }
+}
+
+function get_github_users($fb_user_id) {
+  $link = get_connection();
+  $query = sprintf("SELECT github_user_name FROM fb_github_users WHERE fb_user_id='%s'",
+    mysql_real_escape_string($fb_user_id));
+  $users = run_select_query($link, $query);
+  disconnect($link);
+  return $users;
 }
 
 function get_next_id_for_table($link, $table_name) {

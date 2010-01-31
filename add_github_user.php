@@ -40,11 +40,22 @@ if (
     die();
 }
 
+$link = get_connection();
 $github_user = $_POST['github_users']['name'];
 
-if (add_github_user($fb_user, $github_user)) {
+// TODO:  check that the given Github user name actually exists on Github,
+// probably using Github API:  http://develop.github.com/p/users.html
+
+$row = get_facebook_user_with_link($link, $fb_user);
+
+if (!is_null($row) && $row['github_user_name'] == $github_user) {
+    disconnect($link);
+    header("Location: $redirect_base/logged_in.php?error=That Github user has already been added for you");
+} else if (add_github_user($link, $fb_user, $github_user)) {
+    disconnect($link);
     header("Location: $redirect_base/logged_in.php?notice=Successfully added Github user");
 } else {
+    disconnect($link);
     header("Location: $redirect_base/logged_in.php?error=Could not add Github user");
 }
 ?>
