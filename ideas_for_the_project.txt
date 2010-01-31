@@ -1,0 +1,13 @@
+Basics:  given a repository, user, and branch (default to master), list that
+user's activity on that repository.
+
+Future neatness:
+ - Match up email address on Github with email address on Facebook so you could
+   see wall posts saying "Jon made a commit to NeatoRepository" where "Jon"
+   links to Jon's profile on Facebook and "NeatoRepository" links to the Github
+   page for that repository.  "Commit" could link to the specific revision.
+   
+ - See alerts on Facebook that someone else commited to one of your repositories
+   so you should do a pull.
+   
+ - Settings page to toggle what gets posted to your wall, what alerts you see.
