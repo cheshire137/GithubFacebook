@@ -1,4 +1,4 @@
-<?php require_once 'config.php'; ?>
+<?php require_once 'config.inc.php'; ?>
     <script type="text/javascript">
     function initFB() {
         FB_RequireFeatures(["XFBML"], function(){
