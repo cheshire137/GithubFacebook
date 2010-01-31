@@ -1,0 +1,15 @@
+p.error,
+p.notice {
+    font-weight: bold;
+    padding: 0.2em 0.4em;
+}
+
+p.error {
+    color: #850505;
+    background-color: #F2AAAA;
+}
+
+p.notice {
+    color: #495C00;
+    background-color: #E4F2AA;
+}
