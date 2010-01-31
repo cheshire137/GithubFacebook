@@ -1,4 +1,6 @@
 <?php
+include_once 'header.inc.php';
+
 // the facebook client library
 require_once 'facebook.php';
 
@@ -20,19 +22,10 @@ catch (Exception $ex)
 {
   echo 'Failed to setup database: ' . $ex;
 }
-
-// Greet the currently logged-in user!
-echo "<p>Hello, <fb:name uid=\"$user_id\" useyou=\"false\" />!</p>";
-
-// Print out at most 25 of the logged-in user's friends,
-// using the friends.get API method
-echo "<p>Friends:</p>";
-$friends = $facebook->api_client->friends_get();
-$friends = array_slice($friends, 0, 25);
-echo '<ul>';
-foreach ($friends as $friend) {
-  echo "<li>$friend</li>";
-}
-echo "</ul>\n";
 ?>
+<p>Hello, <fb:name uid="<?php echo $user_id; ?>" useyou="false"></fb:name>!</p>
 <a href="<?= $facebook->get_add_url() ?>">Put Github in your profile</a>, if you haven't already!
+
+<?php
+include_once 'footer.inc.php';
+?>
