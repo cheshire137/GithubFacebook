@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once 'header.inc.php';
-if($_SESSION['authorized'] != 'true') {
+if (!array_key_exists('authorized', $_SESSION) || $_SESSION['authorized'] != 'true') {
     header("Location: http://github.3till7.net/login.php");
 }
 include_once 'config.php'; //has $api_key and $secret defined.

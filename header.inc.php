@@ -3,4 +3,3 @@
 </head>
 <body onload="initFB();">
     <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US" type="text/javascript"></script>
-    <fb:login-button></fb:login-button>
