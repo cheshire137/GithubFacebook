@@ -1,6 +1,6 @@
 <p class="welcome">Hello <fb:name uid="<%= @facebook_id %>" />, welcome to Github on Facebook!</p>
 
-<% form_tag :action => 'create' do %>
+<form action="<%= url_for(:action => 'create') %>" method="post">
     <%= hidden_field_tag 'user[facebook_id]', @facebook_id %>
     <fieldset>
         <legend>Add Github User</legend>
@@ -14,7 +14,7 @@
             </li>
         </ol>
     </fieldset>
-<% end %>
+</form>
 
 <% unless @users.empty? %>
     <table>
