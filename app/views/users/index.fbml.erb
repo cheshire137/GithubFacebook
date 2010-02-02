@@ -1,20 +1,20 @@
 <p class="welcome">Hello <fb:name uid="<%= @facebook_id %>" />, welcome to Github on Facebook!</p>
 
-<form action="<%= url_for(:action => 'create') %>" method="post">
-    <%= hidden_field_tag 'user[facebook_id]', @facebook_id %>
+<% form_tag :action => 'create' do %>
+    <%= hidden_field :user, :facebook_id %>
     <fieldset>
         <legend>Add Github User</legend>
         <ol>
             <li>
                 <label for="user_github_name">Github name:</label>
-                <%= text_field_tag 'user[github_name]', '', :size => 20 %>
+                <%= text_field :user, :github_name, :size => 20 %>
             </li>
             <li>
                 <input type="submit" value="Add &raquo;" />
             </li>
         </ol>
     </fieldset>
-</form>
+<% end %>
 
 <% unless @users.empty? %>
     <table>

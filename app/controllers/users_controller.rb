@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   
   def index
     @page_title = "Home"
-    @users = User.find_all_by_facebook_id @facebook_id
+    @users = User.find_all_by_facebook_id(@facebook_id) || []
     @user = User.new(:facebook_id => @facebook_id)
     
     respond_to do |format|
