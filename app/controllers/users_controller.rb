@@ -1,4 +1,7 @@
+require 'facebook_rails_controller_extensions'
+
 class UsersController < ApplicationController
+  include RFacebook::RailsControllerExtensions
   before_filter :require_facebook_login
   
   def create
