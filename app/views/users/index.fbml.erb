@@ -1,6 +1,6 @@
 <p class="welcome">Hello <fb:name uid="<%= @facebook_id %>" />, welcome to Github on Facebook!</p>
 
-<% form_tag 'create' do %>
+<% form_tag 'users/create' do %>
     <%= hidden_field :user, :facebook_id %>
     <fieldset>
         <legend>Add Github User</legend>
