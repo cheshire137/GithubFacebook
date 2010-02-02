@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
   
   def get_user
-    @current_user = User.find_or_create_by_facebook_id(facebook_session.user.id)
+    @fb_user_id = facebook_session.user.id
+    @current_user = User.find_or_create_by_facebook_id(@fb_user_id)
   end
 end
