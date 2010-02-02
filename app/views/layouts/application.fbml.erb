@@ -1,5 +1,10 @@
-<p class="error"><%= flash[:error] %></p>
-<p class="notice"><%= flash[:notice] %></p>
+<% if flash[:error] && !flash[:error].empty? %>
+    <p class="error"><%= flash[:error] %></p>
+<% end %>
+
+<% if flash[:notice] && !flash[:notice].empty? %>
+    <p class="notice"><%= flash[:notice] %></p>
+<% end %>
 
 <fb:if-section-not-added section="profile">
   <p>Add Github to your profile to see it listed there.</p>
@@ -7,6 +12,3 @@
 </fb:if-section-not-added>
 
 <%= yield %>
-
-<h2>Debug</h2>
-<pre>Facebook ID:  <%= @fb_user_id %></pre>
