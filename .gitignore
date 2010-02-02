@@ -1,1 +1,6 @@
-config.inc.php
+database.yml
+tmp/pids/*
+tmp/sessions/*
+tmp/sockets/*
+tmp/cache/*
+*.log
