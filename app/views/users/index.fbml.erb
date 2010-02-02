@@ -1,1 +1,17 @@
-<p class="welcome">Hello <fb:name uid="<%= @fb_user_id %>" capitalize="true" />!</p>
+<p class="welcome">Hello <fb:name uid="<%= @fb_user_id %>" />, welcome to Github on Facebook!</p>
+
+<% form_tag :action => url_for(:action => 'create') do %>
+    <%= hidden_field :user, :facebook_id %>
+    <fieldset>
+        <legend>Add Github User</legend>
+        <ol>
+            <li>
+                <label for="user_github_name">Github name:</label>
+                <%= text_field :user, :github_name, :size => 20 %>
+            </li>
+            <li>
+                <input type="submit" value="Add &raquo;" />
+            </li>
+        </ol>
+    </fieldset>
+<% end %>
