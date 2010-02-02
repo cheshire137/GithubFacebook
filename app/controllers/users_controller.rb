@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :require_facebook_login
+  
   def create
     unless request.post?
       flash[:error] = 'Please use the form provided'
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:error] = 'Could not add Github name'
-      @facebook_id = facebook_session.user.id
+      @facebook_id = fbsession.session_user_id
       @users = User.find_all_by_facebook_id @facebook_id
       @user = User.new(params[:user])
       render :template => 'index.fbml.erb'
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
   
   def index
     @page_title = "Home"
-    @facebook_id = facebook_session.user.id
+    @facebook_id = fbsession.session_user_id
     @users = User.find_all_by_facebook_id(@facebook_id)
     @user = User.new(:facebook_id => @facebook_id)
     

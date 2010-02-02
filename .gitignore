@@ -5,3 +5,4 @@ tmp/sockets/*
 tmp/cache/*
 *.log
 facebooker.yml
+facebook.yml
