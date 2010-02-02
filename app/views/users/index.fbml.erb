@@ -23,6 +23,7 @@
             <tr>
                 <th>Name</th>
                 <th>Repositories</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,9 @@
                 <tr>
                     <td><%= user.github_name %></td>
                     <td></td>
+                    <td>
+                        <%= link_to 'Edit', :action => :edit, :facebook_id => user.facebook_id, :github_name => user.github_name %>
+                    </td>
                 </tr>
             <% end %>
         </tbody>
