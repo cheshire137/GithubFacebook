@@ -1,9 +1,18 @@
 class UsersController < ApplicationController
   before_filter :get_user
   
+  def create
+    unless request.post?
+      flash[:error] = 'Please use the form provided'
+      redirect_to :action => 'index' and return
+    end
+  end
+  
   def index
     @page_title = "Home"
-    @users = User.find :all
+    @users = User.find_all_by_facebook_id @facebook_id
+    @user = User.new
+    
     respond_to do |format|
       format.fbml # index.fbml.erb
       format.xml  { render :xml => @users }
@@ -11,7 +20,6 @@ class UsersController < ApplicationController
   end
   
   def get_user
-    @fb_user_id = facebook_session.user.id
-    @current_user = User.find_or_create_by_facebook_id(@fb_user_id)
+    @facebook_id = facebook_session.user.id
   end
 end

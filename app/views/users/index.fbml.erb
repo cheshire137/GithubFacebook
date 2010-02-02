@@ -1,4 +1,4 @@
-<p class="welcome">Hello <fb:name uid="<%= @fb_user_id %>" />, welcome to Github on Facebook!</p>
+<p class="welcome">Hello <fb:name uid="<%= @facebook_id %>" />, welcome to Github on Facebook!</p>
 
 <% form_tag :action => url_for(:action => 'create') do %>
     <%= hidden_field :user, :facebook_id %>
@@ -14,4 +14,24 @@
             </li>
         </ol>
     </fieldset>
+<% end %>
+
+<% unless @users.empty? %>
+    <table>
+        <caption>Github Accounts</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Repositories</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+                <tr>
+                    <td><%= user.github_name %></td>
+                    <td></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
 <% end %>
