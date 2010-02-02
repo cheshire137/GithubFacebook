@@ -1,0 +1,9 @@
+<p class="error"><%= flash[:error] %></p>
+<p class="notice"><%= flash[:notice] %></p>
+
+<fb:if-section-not-added section="profile">
+  <p>Add Github to your profile to see it listed there.</p>
+  <fb:add-section-button section="profile" />
+</fb:if-section-not-added>
+
+<%= yield %>
