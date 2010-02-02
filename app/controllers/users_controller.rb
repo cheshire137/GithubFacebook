@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       @facebook_id = facebook_session.user.id
       @users = User.find_all_by_facebook_id @facebook_id
       @user = User.new(params[:user])
-      render :template => 'index'
+      render :template => 'index.fbml.erb'
     end
   end
   
@@ -27,5 +27,10 @@ class UsersController < ApplicationController
     @facebook_id = facebook_session.user.id
     @users = User.find_all_by_facebook_id(@facebook_id)
     @user = User.new(:facebook_id => @facebook_id)
+    
+    respond_to do |format|
+      format.fbml # index.fbml.erb
+      format.xml  { render :xml => @users }
+    end
   end
 end
