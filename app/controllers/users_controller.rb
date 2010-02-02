@@ -1,7 +1,5 @@
-require 'facebook_rails_controller_extensions'
-
 class UsersController < ApplicationController
-  include RFacebook::RailsControllerExtensions
+  before_filter :require_facebook_install
   before_filter :require_facebook_login
   
   def create
@@ -28,14 +26,24 @@ class UsersController < ApplicationController
   end
   
   def index
-    @page_title = "Home"
-    @facebook_id = fbsession.session_user_id
-    @users = User.find_all_by_facebook_id(@facebook_id)
-    @user = User.new(:facebook_id => @facebook_id)
+    if fbsession.nil?
+      render :text => 'fbsession is nil' and return
+    end
     
-    respond_to do |format|
-      format.fbml # index.fbml.erb
-      format.xml  { render :xml => @users }
+    if fbsession.is_valid?
+      response = fbsession.users_getInfo(
+        :uids => fbsession.session_user_id],
+        :fields => ["current_location", "education_history","work_history"]
+      )
+      @page_title = "Home"
+      @facebook_id = fbsession.session_user_id
+      @users = User.find_all_by_facebook_id(@facebook_id)
+      @user = User.new(:facebook_id => @facebook_id)
+      
+      respond_to do |format|
+        format.fbml # index.fbml.erb
+        format.xml  { render :xml => @users }
+      end
     end
   end
 end
