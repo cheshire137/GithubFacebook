@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     
     if fbsession.is_valid?
       response = fbsession.users_getInfo(
-        :uids => fbsession.session_user_id],
+        :uids => fbsession.session_user_id,
         :fields => ["current_location", "education_history","work_history"]
       )
       @page_title = "Home"
