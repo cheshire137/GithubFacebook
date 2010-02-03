@@ -1,7 +1,7 @@
 <p class="welcome">Hello <fb:name uid="<%= @facebook_id %>" />, welcome to Github on Facebook!</p>
 
 <% form_tag 'users/create' do %>
-    <%= hidden_field :user, :facebook_id %>
+    <%= error_messages_for 'user' %>
     <fieldset>
         <legend>Add Github User</legend>
         <ol>
@@ -23,13 +23,34 @@
             <tr>
                 <th>Name</th>
                 <th>Repositories</th>
-                <th>Options</th>
             </tr>
         </thead>
         <tbody>
             <% @users.each do |user| %>
                 <tr>
-                    <td><%= user.github_name %></td>
+                    <td>
+                        <%= editable_content(
+                            :content => {
+                              :element => 'span',
+                              :text => user.github_name,
+                              :options => {
+                                :id => "user_edit_#{user.facebook_id}_#{user.github_name}",
+                                :class => 'editable-content'
+                              }
+                             },
+                            :url => {
+                              :controller => 'users',
+                              :action => 'update',
+                              :github_name => users.github_name
+                             },
+                            :ajax => {
+                              :okText => "'Confirm Github name edit'",
+                              :cancelText => "'Nevermind'"
+                             }
+                        ) %>
+                        <%= link_to 'Delete', :action => :delete,
+                            :github_name => user.github_name %>
+                    </td>
                     <td>
                         <dl>
                             <% user.repositories.each do |repos| %>
@@ -39,11 +60,6 @@
                                 <dd>&ldquo;<%= repos.description %>&rdquo;</dd>
                             <% end %>
                         </dl>
-                    </td>
-                    <td>
-                        <%= link_to 'Edit', :action => :edit,
-                            :facebook_id => user.facebook_id,
-                            :github_name => user.github_name %>
                     </td>
                 </tr>
             <% end %>
