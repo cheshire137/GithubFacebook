@@ -33,16 +33,23 @@
                     <td>
                         <dl>
                             <% user.repositories.each do |repos| %>
-                                <dt><%= link_to repos.name, repos.url %></dt>
-                                <dd></dd>
+                                <dt><%= link_to repos.name, repos.url %>
+                                (<%= repos.watchers %>w, <%= repos.forks %>f,
+                                <%= repos.open_issues %>i)</dt>
+                                <dd>&ldquo;<%= repos.description %>&rdquo;</dd>
                             <% end %>
                         </dl>
                     </td>
                     <td>
-                        <%= link_to 'Edit', :action => :edit, :facebook_id => user.facebook_id, :github_name => user.github_name %>
+                        <%= link_to 'Edit', :action => :edit,
+                            :facebook_id => user.facebook_id,
+                            :github_name => user.github_name %>
                     </td>
                 </tr>
             <% end %>
         </tbody>
     </table>
+    
+    <h2>Repository Key:</h2>
+    <p>w = watchers, f = forks, i = open issues</p>
 <% end %>
