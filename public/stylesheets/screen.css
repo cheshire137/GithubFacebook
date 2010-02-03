@@ -1,4 +1,8 @@
 
+div.errorExplanation {
+    
+}
+
 dl {
     
 }
@@ -13,12 +17,16 @@ fieldset {
 }
 
 p.error,
-p.notice {
+p.notice,
+div.errorExplanation,
+div.fieldWithErrors {
     font-weight: bold;
     padding: 0.2em 0.4em;
 }
 
-p.error {
+p.error,
+div.errorExplanation,
+div.fieldWithErrors {
     color: #850505;
     background-color: #F2AAAA;
 }

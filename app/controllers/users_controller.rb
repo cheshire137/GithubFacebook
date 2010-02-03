@@ -12,18 +12,17 @@ class UsersController < ApplicationController
       redirect_to :action => 'index' and return
     end
     
-    @facebook_id = facebook_session.user.id
-    params[:user][:facebook_id] = @facebook_id
-    @user = User.new(params[:user])
+    facebook_id = facebook_session.user.id
+    params[:user][:facebook_id] = facebook_id
+    user = User.new(params[:user])
     
-    if @user.save
+    if user.save
       flash[:notice] = 'Successfully added Github name'
-      redirect_to :action => 'index'
     else
-      flash[:error] = 'Could not add Github name'
-      @users = User.find_all_by_facebook_id @facebook_id
-      render :template => 'users/index.fbml.erb'
+      flash[:error] = 'Could not add Github name -- is it a real Github account?'
     end
+    
+    redirect_to :action => 'index'
   end
   
   def delete
