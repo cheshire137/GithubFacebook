@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_id, :github_name
   
   def User.valid_github?(user_name)
-    return false if user_name.nil? || user_name.empty?
+    return false if user_name.nil? || user_name.blank?
     GitHub::API.user(user_name)
     true
   rescue OpenURI::HTTPError
