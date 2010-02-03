@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       flash[:error] = 'Could not add Github name'
       @facebook_id = facebook_session.user.id
       @users = User.find_all_by_facebook_id @facebook_id
-      render :template => 'index'
+      render :template => 'users/index.fbml.erb'
     end
   end
   
