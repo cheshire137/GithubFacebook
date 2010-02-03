@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   end
   
   def repositories
-    GitHub::Api.user(github_name).repositories
+    GitHub::API.user(github_name).repositories
   rescue
     []
   end
